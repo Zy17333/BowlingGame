@@ -13,12 +13,12 @@ type Hits []int
 func ScoreCalc(input string) int {
 	mainGameHits, totalHits, bonus := GetHitsInfo(input)
 	score := 0
-	for index, _ := range totalHits {
+	for index, hit := range mainGameHits {
 		for len(bonus) > 0 && index == bonus[0] {
 			score += totalHits[bonus[0]]
 			bonus = bonus[1:]
 		}
-		score += mainGameHits[index]
+		score += hit
 		fmt.Printf("Hit %v: Score = %v\n", index, score)
 	}
 	return score
