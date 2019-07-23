@@ -8,6 +8,8 @@ import (
 
 const NumberOfPinsPerTurn = 10
 
+type Hits []int
+
 func ScoreCalc(input string) int {
 	mainGameHits, totalHits, bonus := GetHitsInfo(input)
 	score := 0
@@ -21,8 +23,6 @@ func ScoreCalc(input string) int {
 	}
 	return score
 }
-
-type Hits []int
 
 func GetHitsInfo(input string) (Hits, Hits, []int) {
 	mainGame, extraGame := SplitGame(input)
