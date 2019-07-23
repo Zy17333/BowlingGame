@@ -19,6 +19,5 @@ func TestScoreCalc(t *testing.T) {
 		score := ScoreCalc(testCase)
 		fmt.Println("Total Score = ", score)
 		fmt.Println("============================")
-
 	}
 }

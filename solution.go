@@ -27,23 +27,23 @@ type Hits []int
 func GetHitsInfo(input string) (Hits, Hits, []int) {
 	mainGame, extraGame := SplitGame(input)
 	mainGameHits, bonus := ParseMainGame(mainGame)
-	hitsNumbers := make(Hits, 0, 0)
-	hitsNumbers = append(hitsNumbers, mainGameHits...)
+	totalHits := make(Hits, 0, 0)
+	totalHits = append(totalHits, mainGameHits...)
 	for _, c := range extraGame {
 		switch c {
 		case '-':
-			hitsNumbers = append(hitsNumbers, 0)
+			totalHits = append(totalHits, 0)
 		case '/':
-			hitsNumbers = append(hitsNumbers, NumberOfPinsPerTurn-hitsNumbers.Last())
+			totalHits = append(totalHits, NumberOfPinsPerTurn-totalHits.Last())
 		case 'X':
-			hitsNumbers = append(hitsNumbers, NumberOfPinsPerTurn)
+			totalHits = append(totalHits, NumberOfPinsPerTurn)
 		default:
 			num, _ := strconv.Atoi(string(c))
-			hitsNumbers = append(hitsNumbers, num)
+			totalHits = append(totalHits, num)
 		}
 		mainGameHits = append(mainGameHits, 0)
 	}
-	return mainGameHits, hitsNumbers, bonus
+	return mainGameHits, totalHits, bonus
 }
 
 func SplitGame(input string) (string, string) {
