@@ -6,9 +6,10 @@ import (
 	"strings"
 )
 
+const NumberOfPinsPerTurn = 10
+
 func ScoreCalc(input string) int {
-	mainGameHits, totalHits, bonus := GetHitsNumbers(input)
-	fmt.Println(mainGameHits, totalHits, bonus)
+	mainGameHits, totalHits, bonus := GetHitsInfo(input)
 	score := 0
 	for index, _ := range totalHits {
 		for len(bonus) > 0 && index == bonus[0] {
@@ -16,14 +17,14 @@ func ScoreCalc(input string) int {
 			bonus = bonus[1:]
 		}
 		score += mainGameHits[index]
-		fmt.Println(score)
+		fmt.Printf("Hit %v: Score = %v\n", index, score)
 	}
 	return score
 }
 
 type Hits []int
 
-func GetHitsNumbers(input string) (Hits, Hits, []int) {
+func GetHitsInfo(input string) (Hits, Hits, []int) {
 	mainGame, extraGame := SplitGame(input)
 	mainGameHits, bonus := ParseMainGame(mainGame)
 	hitsNumbers := make(Hits, 0, 0)
@@ -32,18 +33,15 @@ func GetHitsNumbers(input string) (Hits, Hits, []int) {
 		switch c {
 		case '-':
 			hitsNumbers = append(hitsNumbers, 0)
-			mainGameHits = append(mainGameHits, 0)
 		case '/':
 			hitsNumbers = append(hitsNumbers, NumberOfPinsPerTurn-hitsNumbers.Last())
-			mainGameHits = append(mainGameHits, 0)
 		case 'X':
 			hitsNumbers = append(hitsNumbers, NumberOfPinsPerTurn)
-			mainGameHits = append(mainGameHits, 0)
 		default:
 			num, _ := strconv.Atoi(string(c))
 			hitsNumbers = append(hitsNumbers, num)
-			mainGameHits = append(mainGameHits, 0)
 		}
+		mainGameHits = append(mainGameHits, 0)
 	}
 	return mainGameHits, hitsNumbers, bonus
 }

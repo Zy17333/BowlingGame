@@ -9,7 +9,6 @@ type Turn struct {
 const (
 	NumberOfTurnsPerGame = 10
 	NumberOfBallsPerTurn = 2
-	NumberOfPinsPerTurn  = 10
 )
 
 var BonusBalls = []int{2, 1}
