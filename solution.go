@@ -54,7 +54,7 @@ func SplitGame(input string) (string, string) {
 	return games[0], games[1]
 }
 
-func ParseMainGame(mainGame string, ) (Hits, []int) {
+func ParseMainGame(mainGame string) (Hits, []int) {
 	hitsNumbers := make(Hits, 0, 0)
 	bonus := make([]int, 0, 0)
 	for _, c := range mainGame {
