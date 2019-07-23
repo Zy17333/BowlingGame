@@ -55,26 +55,26 @@ func SplitGame(input string) (string, string) {
 }
 
 func ParseMainGame(mainGame string) (Hits, []int) {
-	hitsNumbers := make(Hits, 0, 0)
+	mainGameHits := make(Hits, 0, 0)
 	bonus := make([]int, 0, 0)
 	for _, c := range mainGame {
 		switch c {
 		case '|':
 			continue
 		case '-':
-			hitsNumbers = append(hitsNumbers, 0)
+			mainGameHits = append(mainGameHits, 0)
 		case '/':
-			hitsNumbers = append(hitsNumbers, NumberOfPinsPerTurn-hitsNumbers.Last())
-			bonus = append(bonus, hitsNumbers.Len())
+			mainGameHits = append(mainGameHits, NumberOfPinsPerTurn-mainGameHits.Last())
+			bonus = append(bonus, mainGameHits.Len())
 		case 'X':
-			hitsNumbers = append(hitsNumbers, NumberOfPinsPerTurn)
-			bonus = append(bonus, []int{hitsNumbers.Len(), hitsNumbers.Len() + 1}...)
+			mainGameHits = append(mainGameHits, NumberOfPinsPerTurn)
+			bonus = append(bonus, []int{mainGameHits.Len(), mainGameHits.Len() + 1}...)
 		default:
 			num, _ := strconv.Atoi(string(c))
-			hitsNumbers = append(hitsNumbers, num)
+			mainGameHits = append(mainGameHits, num)
 		}
 	}
-	return hitsNumbers, bonus
+	return mainGameHits, bonus
 }
 
 func (s Hits) Last() int {
